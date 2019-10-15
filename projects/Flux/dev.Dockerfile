@@ -1,7 +1,7 @@
 FROM nvidia/cuda:10.1-cudnn7-devel
 # To use this Dockerfile:
 # 1. `nvidia-docker build -f dev.Dockerfile -t flux_detectron2:v0 ../..`
-# 2. `nvidia-docker run -d -v /home/joan/.aws/:/root/.aws/ -v /home/joan/cvdev:/root/cvdev -p 8889:8888 -p 6007:6006 -p 23:22 --name flux_detectron_joan_gpu0 flux_detectron2:v0`
+# 2. `nvidia-docker run -d -v /home/joan/.aws/:/root/.aws/ -v /home/joan/cvdev:/root/cvdev -p 8889:8888 -p 6007:6006 -p 23:22 --name flux_detectron_joan_gpu0 --ipc=host flux_detectron2:v0`
 
 
 ENV DEBIAN_FRONTEND noninteractive
