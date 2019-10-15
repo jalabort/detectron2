@@ -6,7 +6,7 @@ inference_test_output
 
 *.jpg
 *.png
-*.txt
+#*.txt
 
 # compilation and distribution
 __pycache__
@@ -23,7 +23,7 @@ dist/
 *.npy
 
 # ipython/jupyter notebooks
-*.ipynb
+#*.ipynb
 **/.ipynb_checkpoints/
 
 # Editor temporaries
