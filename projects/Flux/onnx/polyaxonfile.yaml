@@ -1,0 +1,24 @@
+---
+version: 1
+
+kind: notebook
+
+backend: lab
+
+environment:
+  node_selector:
+    group: GPU-P3
+  resources:
+    gpu:
+      requests: 1
+      limits: 1
+    cpu:
+      requests: 3
+      limits: 4
+    memory:
+        requests: 58000
+        limits: 60000
+
+build:
+  branch: retinanet_onnx
+  dockerfile: projects/Flux/polyaxon/Dockerfile
