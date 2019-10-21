@@ -1,10 +1,13 @@
 IMAGE_NAME=ocean-eye
 CONTAINER_NAME=billie
-DOCKERFILE=Detectron2.Dockerfile
+DOCKERFILE=docker/Dockerfile
 
 build:
 	docker build -t $(IMAGE_NAME) -f $(DOCKERFILE) .
 
+clean-build:
+	docker build --no-cache -t $(IMAGE_NAME) -f $(DOCKERFILE) .
+	
 run:
 	@echo "IT'S DANGEROUS TO GO ALONE! TAKE THIS."
 	docker run --runtime=nvidia \
