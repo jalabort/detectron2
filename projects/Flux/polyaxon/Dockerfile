@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y \
 	libpng-dev libjpeg-dev python3-opencv ca-certificates \
-	python3-dev build-essential pkg-config git curl wget automake libtool && \
+	python3-dev build-essential pkg-config git curl wget automake libtool unzip && \
     rm -rf /var/lib/apt/lists/* && \ 
     curl -fSsL -O https://bootstrap.pypa.io/get-pip.py && \
 	python3 get-pip.py && \
