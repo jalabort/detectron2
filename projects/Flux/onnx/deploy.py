@@ -118,5 +118,5 @@ def retinanet2onnx(
 
 
 if __name__ == '__main__':
-    from fire import fire
-    fire(retinanet2onnx)
+    from fire import Fire
+    Fire(retinanet2onnx)
