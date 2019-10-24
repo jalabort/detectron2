@@ -21,4 +21,4 @@ environment:
 
 build:
   branch: retinanet_onnx
-  dockerfile: projects/Flux/onnx/Dockerfile
+  dockerfile: projects/Flux/polyaxon/Dockerfile
