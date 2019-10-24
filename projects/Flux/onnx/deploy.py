@@ -1,11 +1,13 @@
-from typing import List
+from typing import List, Tuple, Optional
 from pathlib import Path
 
 import torch as pt
 from torch import nn
 from torch.onnx.symbolic_helper import parse_args
 
-from detectron2.modeling import Backbone
+from detectron2.config import get_cfg
+from detectron2.checkpoint import DetectionCheckpointer
+from detectron2.modeling import Backbone, build_model
 from detectron2.modeling.meta_arch.retinanet import (
     RetinaNet,
     RetinaNetHead
@@ -66,3 +68,55 @@ class DeployableRetinaNet(nn.Module):
             input_names=input_names, 
             output_names=output_names
         )
+
+
+def retinanet2onnx(
+        model_path: Path,
+        cfg_path: Path,
+        onnx_path: Path,
+        input_shape: Tuple[int],
+        input_names: List[str], 
+        output_names: List[str], 
+        opset: int
+):
+    r"""
+    Export a RetinaNet model as an ONNX file.
+
+    Paramters
+    ---------
+    model_path
+    cfg_path
+    onnx_path
+    input_shape
+    input_names
+    output_names
+    opset
+
+    """
+
+    # Load configurations.
+    cfg = get_cfg()
+    cfg.merge_from_file(config_path)
+
+    # Build and load a RetinaNet model.
+    model = build_model(cfg).eval()
+    DetectionCheckpointer(model).load(model_path)
+
+    # Create a dummy input tensor (batch, channels, height, width)
+    if len(input_shape) != 4: 
+        raise ValueError(f'input_shape must be (B, C, H, W)')
+    dummy_input = pt.randn(input_shape).to(model.device)
+
+    # Export ONNX.
+    model.export(
+        onnx_path,
+        dummy_input,
+        input_names,
+        output_names,
+        opset
+    )
+
+
+if __name__ == '__main__':
+    from fire import fire
+    fire(retinanet2onnx)
